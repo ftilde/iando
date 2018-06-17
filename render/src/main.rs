@@ -2,6 +2,7 @@ extern crate syntect;
 #[macro_use]
 extern crate structopt;
 extern crate printpdf;
+extern crate palette;
 
 use structopt::StructOpt;
 use std::path::{Path, PathBuf};
@@ -14,13 +15,14 @@ use std::io::{BufRead, BufWriter};
 use std::error::Error;
 use std::fs::File;
 use printpdf::*;
+use palette::{Saturate, Hue, Shade};
 
 
 fn render(input_file_path: &Path, output_file_path: &Path) -> Result<(), Box<Error>> {
     let ss = SyntaxSet::load_defaults_nonewlines();
     let ts = ThemeSet::load_defaults();
 
-    let mut highlighter = HighlightFile::new(input_file_path, &ss, &ts.themes["base16-ocean.dark"])?;
+    let mut highlighter = HighlightFile::new(input_file_path, &ss, &ts.themes["base16-eighties.dark"])?;
 
     let z = Mm(0.0);
     let w = Mm(210.0);
@@ -66,10 +68,15 @@ fn render(input_file_path: &Path, output_file_path: &Path) -> Result<(), Box<Err
         //println!("{}", as_24_bit_terminal_escaped(&regions[..], true));
         for (style, text) in regions {
             let color = style.foreground;
+            let mut color = palette::Color::linear_rgb(color.r as f64/255.0, color.g as f64/255.0, color.b as f64/255.0);
+            let color = color.shift_hue(20.0);
+            let color = color.saturate(0.1);
+            let color = color.lighten(0.1);
+            let color: palette::LinSrgb<f64> = palette::rgb::Rgb::from(color);
             let color = Color::Rgb(Rgb::new(
-                color.r as f64/255.0,
-                color.g as f64/255.0,
-                color.b as f64/255.0,
+                color.red,
+                color.green,
+                color.blue,
                 None));
             current_layer.set_fill_color(color);
             current_layer.write_text(text, &font);

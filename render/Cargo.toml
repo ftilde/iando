@@ -7,3 +7,4 @@ authors = ["ftilde <ftilde@protonmail.com>"]
 syntect = "2.1"
 structopt = "0.2"
 printpdf = "0.2.6"
+palette = "0.4"
