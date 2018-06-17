@@ -1,0 +1,9 @@
+[package]
+name = "render"
+version = "0.1.0"
+authors = ["ftilde <ftilde@protonmail.com>"]
+
+[dependencies]
+syntect = "2.1"
+structopt = "0.2"
+printpdf = "0.2.6"

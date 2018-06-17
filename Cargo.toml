@@ -1,0 +1,8 @@
+[package]
+name = "quine"
+version = "0.1.0"
+authors = ["ftilde <ftilde@protonmail.com>"]
+
+[dependencies]
+quine-derive = { path = "quine-derive" }
+

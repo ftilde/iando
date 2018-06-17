@@ -1,0 +1,8 @@
+[package]
+name = "quine-derive"
+version = "0.1.0"
+authors = ["ftilde <ftilde@protonmail.com>"]
+
+[lib]
+name = "quine_derive"
+proc-macro = true

@@ -1,0 +1,11 @@
+[[package]]
+name = "quine"
+version = "0.1.0"
+dependencies = [
+ "quine-derive 0.1.0",
+]
+
+[[package]]
+name = "quine-derive"
+version = "0.1.0"
+
